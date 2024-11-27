@@ -3,47 +3,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool pushStack (STACK* stack, void* dataInPtr) {
+bool pushStack (STACK* pStack, void* dataInPtr) {
     NODE *newNode = (NODE*) malloc(sizeof(NODE));
 
     if (!newNode) return false;
 
     (*newNode).dataPtr = dataInPtr;
-    (*newNode).link = (*stack).top;
+    (*newNode).link = (*pStack).top;
 
-    (*stack).top = newNode;
+    (*pStack).top = newNode;
     
-    (*stack).count ++;
+    (*pStack).count ++;
     return true;
 }
 
-bool *popStack (STACK *stack) {
-    NODE *removeNode = (*stack).top;
+bool popStack (STACK *pStack) {
+    NODE *removeNode = (*pStack).top;
 
-    if ((*stack).count == 0) return false;
+    if ((*pStack).count == 0) return false;
 
-    free((*stack).top->dataPtr);
-    (*stack).top = (*stack).top->link;
+    free((*pStack).top->dataPtr);
+    (*pStack).top = (*pStack).top->link;
     free(removeNode);
-    (*stack).count --;
+    (*pStack).count --;
 
     return true;
 }
 
-void *stackTop (STACK *stack) {
-    if ((*stack).count == 0) return NULL;
-    return (*stack).top->dataPtr;
+void *stackTop (STACK *pStack) {
+    if ((*pStack).count == 0) return NULL;
+    return (*pStack).top->dataPtr;
 }
 
-int stackCount (STACK* stack) {
-    return (*stack).count;
+int stackCount (STACK* pStack) {
+    return (*pStack).count;
 }
 
-bool isEmptyStack (STACK* stack) {
-    return (*stack).count == 0;
+bool isEmptyStack (STACK* pStack) {
+    return (*pStack).count == 0;
 }
 
-bool isFullStack (STACK* stack) {
+bool isFullStack (STACK* pStack) {
     NODE *newNode = (NODE*) malloc(sizeof(NODE));
 
     if (!newNode) return true;
@@ -52,55 +52,55 @@ bool isFullStack (STACK* stack) {
 }
 
 STACK *createStackImplement() {
-    STACK *stack = (STACK*) malloc(sizeof(STACK));
+    STACK *newStack = (STACK*) malloc(sizeof(STACK));
 
-    if (stack) {
-        (*stack).count = 0;
-        (*stack).top = NULL;
+    if (newStack) {
+        (*newStack).count = 0;
+        (*newStack).top = NULL;
 
-        (*stack).pushStack = pushStack;
-        (*stack).popStack = popStack;
-        (*stack).stackTop = stackTop;
-        (*stack).stackCount = stackCount;
-        (*stack).isEmptyStack = isEmptyStack;
-        (*stack).isFullStack = isFullStack;
+        (*newStack).pushStack = pushStack;
+        (*newStack).popStack = popStack;
+        (*newStack).stackTop = stackTop;
+        (*newStack).stackCount = stackCount;
+        (*newStack).isEmptyStack = isEmptyStack;
+        (*newStack).isFullStack = isFullStack;
     }
 
-    return stack;
+    return newStack;
 }
 
-bool destroyStackImplement (STACK *stack) {
+bool destroyStackImplement (STACK *pStack) {
     NODE *current;
     
-    if (!stack) return false;
+    if (!pStack) return false;
 
-    while ((*stack).top != NULL)
+    while ((*pStack).top != NULL)
     {
-        free((*stack).top->dataPtr);
-        current = (*stack).top;
-        (*stack).top = (*stack).top->link;
+        free((*pStack).top->dataPtr);
+        current = (*pStack).top;
+        (*pStack).top = (*pStack).top->link;
         free(current);
     }
 
     return true;
 }
 
-void debugStackImplement(STACK *stack) {
-    if (stack == NULL) {
+void debugStackImplement(STACK *pStack) {
+    if (pStack == NULL) {
         printf("List is NULL.\n");
         return;
     }
 
     printf("=============================================\n");
-    printf("List Count: %d\n", stack->count);
-    printf("Head Node Address: %p\n", (void *)stack->top);
-    if (stack->top != NULL) {
-        printf("Head Node DataPtr: %d\n", *(int *)(stack->top->dataPtr));  // 假設 dataPtr 是 int*
+    printf("List Count: %d\n", pStack->count);
+    printf("Head Node Address: %p\n", (void *)pStack->top);
+    if (pStack->top != NULL) {
+        printf("Head Node DataPtr: %d\n", *(int *)(pStack->top->dataPtr));  // 假設 dataPtr 是 int*
     }
     printf("---------------------------------------------\n");
 
 
-    NODE *currentNode = stack->top;
+    NODE *currentNode = pStack->top;
     int nodeIndex = 0;
 
     while (currentNode != NULL) {
