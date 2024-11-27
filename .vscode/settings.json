@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "*.tpl": "html",
+        "*.cs": "csharp",
+        "dockerfile_node": "dockerfile",
+        "*.tpe": "html",
+        "stdio.h": "c",
+        "_stdio.h": "c"
+    },
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, UseTab: Never, IndentWidth: 4, TabWidth: 4, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 0, AccessModifierOffset: -4, NamespaceIndentation: All, FixNamespaceComments: false }"
+}
