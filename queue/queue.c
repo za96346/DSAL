@@ -12,14 +12,55 @@ bool enqueue (struct queue *pQueue, void *dataInPtr) {
     if (!newNode) return false;
 
     (*newNode).dataPtr = dataInPtr;
-    // (*newNode).link = 
+    (*newNode).link = NULL;
+
+    if ((*pQueue).isEmptyQueue(pQueue)) {
+        (*pQueue).top = newNode;
+        (*pQueue).rear = newNode;
+    } else {
+        (*pQueue).rear->link = newNode;
+        (*pQueue).rear = newNode;
+    }
+    
+    (*pQueue).count ++;
+
+    return true;
 }
-bool dequeue (struct queue *pQueue) {}
-void *queueTop (struct queue* pQueue) {}
-void *queueLast (struct queue* pQueue) {}
-int queueCount (struct queue* pQueue) {}
-bool isEmptyQueue (struct queue* pQueue) {}
-bool isFullQueue (struct queue* pQueue) {}
+bool dequeue (struct queue *pQueue) {
+    if ((*pQueue).isEmptyQueue(pQueue)) {
+        return false;
+    }
+
+    NODE *temp = (*pQueue).top;
+    (*pQueue).top = (*pQueue).top->link;
+    if ((*pQueue).top == NULL) (*pQueue).rear = NULL;
+    free(temp);
+
+    (*pQueue).count --;
+    return true;
+}
+void *queueTop (struct queue* pQueue) {
+    return (*pQueue).top;
+}
+void *queueLast (struct queue* pQueue) {
+    return (*pQueue).rear;
+}
+int queueCount (struct queue* pQueue) {
+    return (*pQueue).count;
+}
+bool isEmptyQueue (struct queue* pQueue) {
+    return (*pQueue).count == 0;
+}
+bool isFullQueue (struct queue* pQueue) {
+    NODE *newNode = (NODE*)malloc(sizeof(NODE));
+
+    if (newNode) {
+        free(newNode);
+        return false;
+    }
+
+    return true;
+}
 
 QUEUE *createQueueImplement () {
     QUEUE *newQueue = (QUEUE*)malloc(sizeof(QUEUE));
