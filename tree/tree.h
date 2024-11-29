@@ -5,8 +5,8 @@
 
 typedef struct node {
     int *data;
-    struct Node* left;
-    struct Node* right;
+    struct node* left;
+    struct node* right;
 } NODE;
 
 typedef struct tree

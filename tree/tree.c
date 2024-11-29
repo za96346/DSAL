@@ -30,16 +30,16 @@ NODE *insertNode(NODE*pNode, int *data) {
     return pNode;
 }
 NODE *findLeftMax(NODE *pNode) {
-    int min;
+    NODE *minNode;
     while ((*pNode).left != NULL)
     {
-        if ((*pNode).data < min) {
-            min = (*pNode).data;
+        if ((*pNode).data < (*minNode).data) {
+            minNode = pNode;
         }
 
         pNode = (*pNode).left;
     }
-    return min;
+    return minNode;
 }
 NODE *deleteNode(NODE*pNode, int *data) {
     if (pNode == NULL) return NULL;
@@ -120,16 +120,45 @@ TREE *createTreeImplement() {
     return newTree;
 }
 
-void debugTreeImplement(TREE *pTree) {
+// 递归打印树的每个节点，缩进表示层级
+void printTreeRecursive(NODE *pNode, int level) {
+    if (pNode == NULL) {
+        return;
+    }
 
-}
-bool destroyTreeImplement(TREE *pTree) {
-    // while ((*pTree).count != 0)
-    // {
-    //     (*pTree).count--;
-    //     (*pTree).root
-    // }
+    // 打印当前节点的数据，使用缩进表示层级
+    for (int i = 0; i < level; i++) {
+        printf("  "); // 打印缩进
+    }
+    printf("Node data: %d\n", *(pNode->data));
+
+    // 递归打印左子树
+    printTreeRecursive(pNode->left, level + 1);
     
+    // 递归打印右子树
+    printTreeRecursive(pNode->right, level + 1);
+}
+
+void debugTreeImplement(TREE *pTree) {
+    printf("\nTree structure:\n");
+    printf("---------------------------\n");
+    if (pTree == NULL || pTree->root == NULL) {
+        printf("Tree is empty.\n");
+        return;
+    }
+    printTreeRecursive(pTree->root, 0);
+    printf("---------------------------\n");
+}
+
+bool destroyTreeImplement(TREE *pTree) {
+    if (pTree == NULL || pTree->root == NULL) {
+        printf("Tree is empty.\n");
+        return false;
+    }
+
+    printf("Tree structure:\n");
+    printTreeRecursive(pTree->root, 0);
+    return true;
 }
 
 TreeModule tree = {
