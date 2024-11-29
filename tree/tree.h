@@ -25,7 +25,6 @@ typedef struct tree
 typedef struct 
 {
     TREE *(*createTree)();
-    NODE *(*searchTree)(NODE *pNode, int *data);
     void (*debugTree)(TREE *pTree);
     bool (*destroyTree)(TREE *pTree);
 } TreeModule;
